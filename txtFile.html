@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>.txt Viewer</title>
+    <style>
+        body {
+            background-color: #555;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* generic styling for the quote */
+        #text::before {
+            content: "\"";
+        }
+        #text::after {
+            content: "\"";
+        }
+        #title::after {
+            content: " said:";
+            font-size: 20px;
+        }
+
+        /* Styling specific to an index card */
+        .card{
+            font-family: Courier, monospace;
+            background-color: white;
+            background: repeating-linear-gradient(white, white 25px, #9198e5 26px, #9198e5 27px);
+            background-position-y: 34px;
+            height: 300px;
+            width: 500px;
+            padding: 0;
+            margin-top: 50px;
+            
+            margin-right: 15px;
+        }
+        .card header {
+            background: linear-gradient(white, white 33px, pink 35px, pink 36px);
+            height: 36px;
+        }
+        #card-title {
+            position: relative;
+            left: 10px;
+            top: 8px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #card-text {
+            position: relative;
+            top: 30px;
+            font-size: 18px;
+            margin: 0 20px;
+            line-height: 27px;
+        }
+
+        /* Styling specific to a sheet of lined paper */
+        .sheet{
+            top: 50px;
+            left: 0;
+            height: auto;
+            min-height: 500px;
+            width: 98%;
+            font-family: 'Indie Flower', cursive;
+            background-color: white;
+            background: repeating-linear-gradient(white, white 25px, #9198e5 26px, #9198e5 27px);
+            background-position-y: 49px;
+            position: absolute;
+        }
+        .sheet header {
+            background-color: white;
+            background: linear-gradient(white, white 48px, #9198e5 49px, #9198e5 50px);
+            height: 50px;
+        }
+        #sheet-title {
+            left: 58px;
+            font-size: 14pt;
+            top: 20px;
+            font-weight: bold;
+            position: absolute;
+        }
+        #sheet-text {
+            font-size: 10pt;
+            top: 33px;
+            width: 90%;
+            margin: 0 55px;
+            line-height: 27px;
+            position: relative;
+
+            white-space: pre-wrap;
+        }
+
+        .margin {
+            width: 49px;
+            height: 100%;
+        }
+        .l-margin {
+            left: 0;
+            border-right: 2px solid pink;
+            position: absolute;
+        }
+        .r-margin {
+            float: right;
+            border-left: 1px solid pink;
+        }
+
+        /* Styling for hole punches */
+        .l-margin {
+        }
+        .hole {
+            height: 20px;
+            width: 20px;
+            background-color: #555;
+            border-radius: 50%;
+            position: absolute;
+            left: 15px;
+        }
+        .first-hole {
+            top: 30px;
+        }
+        .second-hole {
+            top: 50%;
+        }
+        .third-hole {
+            bottom: 30px;
+        }
+
+        #txtUpload {
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+        }
+
+        label[for=txtUpload] {
+            left: 0;
+            width: 100px;
+            padding: 8px 5px 5px 5px;
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 2px 2px lightgrey;
+            text-align: center;
+            position: absolute;
+        }
+
+        label[for=txtUpload]:hover {
+            color: Yellow;
+            background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
+            border: 1px solid transparent;
+        }
+    </style>
+  </head>
+  <body>
+    <input type="file" id="txtUpload" onchange="loadFile(this.files[0])" style="display:none;"></input>
+    <label for="txtUpload">*.txt 선택</label>
+
+    <!--
+    <div class="card">
+        <header>
+            <span class="card-title">fileName.txt</span>
+        </header>
+        <pre id="card-text">
+        </pre>
+    </div>-->
+        
+    <div class="sheet">
+        <div class="l-margin margin">
+            <div class="hole first-hole"></div>
+            <div class="hole second-hole"></div>
+            <div class="hole third-hole"></div>
+        </div>
+        <div class="r-margin margin"></div>
+        <header>
+            <span id="sheet-title">*.txt</span>
+        </header>
+        <pre id="sheet-text">
+        upload a text file~
+        </pre>
+    </div>
+
+    <script>
+      async function loadFile(tgfile) {
+        let name = tgfile.name;
+        let text = await tgfile.text(); console.log(tgfile);
+        document.getElementById('sheet-title').innerHTML = name;
+        document.getElementById('sheet-text').textContent = text;
+      }
+    </script>
+  </body>
+</html>
+
