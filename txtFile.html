@@ -193,7 +193,7 @@
     <script>
       async function loadFile(tgfile) {
         const valids = ["txt"];    
-        const extention = tgfile.name.split('.').pop();
+        const extention = (tgfile.name.split('.').pop()).toLowerCase();
         if(!valids.includes(extention)) {
             alert('.txt 파일만 선택해주세요ㅠ'); return;
         }
